@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  9router:
+    image: 9router:v0.4.14
+    container_name: 9router
+    ports:
+      - "20128:20128"
+    env_file:
+      - /root/dev/9router/.env
+    volumes:
+      - 9router-data:/app/data
+      - 9router-usage:/root/.9router
+    restart: unless-stopped
+
+volumes:
+  9router-data:
+  9router-usage:

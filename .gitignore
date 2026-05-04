@@ -2,6 +2,14 @@
 
 # dependencies
 /node_modules
+/.venv/
+/venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.python-version
 /.pnp
 .pnp.*
 .yarn/*
@@ -20,6 +28,7 @@ product
 # production
 /build
 .idea/
+.vscode/
 
 # misc
 .DS_Store
