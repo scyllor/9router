@@ -1,18 +1,34 @@
-version: '3.8'
-
 services:
   9router:
-    image: 9router:v0.4.14
+    image: 9router:latest
     container_name: 9router
     ports:
-      - "20128:20128"
+      - 20128:20128
     env_file:
-      - /root/dev/9router/.env
+      - ./.env
     volumes:
       - 9router-data:/app/data
-      - 9router-usage:/root/.9router
-    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:20128/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    logging:
+      driver: json-file
+      options:
+        max-size: "1m"
+        max-file: "5"
+        compress: "true"
+    cpus: "0.8"
+    mem_limit: 384m
+    mem_reservation: 128m
+    networks:
+      - 9router-net
 
 volumes:
   9router-data:
-  9router-usage:
+
+networks:
+  9router-net:
+    driver: bridge
